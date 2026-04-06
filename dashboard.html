@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarPlates LB — Search</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dashboard-page">
+
+    <div class="bg-grid"></div>
+
+    <!-- Top Nav -->
+    <nav class="navbar">
+        <div class="nav-brand">🚗 CarPlates<span>LB</span></div>
+        <div class="nav-right">
+            <span class="nav-user" id="navUser">👤 User</span>
+            <button class="btn-logout" onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="dashboard-wrapper">
+
+        <div class="search-section">
+            <h2>Search Vehicle Records</h2>
+            <p class="search-hint">Search by plate number, owner name, brand, chassis, or address</p>
+
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="e.g. 108654 or Toyota or Ahmad..." 
+                    onkeydown="if(event.key==='Enter') searchCars()">
+                <button class="btn-search" onclick="searchCars()">
+                    🔍 Search
+                </button>
+                <button class="btn-clear" onclick="clearSearch()">✕ Clear</button>
+            </div>
+
+            <!-- Filter Row -->
+            <div class="filter-row">
+                <select id="filterField">
+                    <option value="all">All fields</option>
+                    <option value="actualnb">Plate Number</option>
+                    <option value="nom">Last Name</option>
+                    <option value="prenom">First Name</option>
+                    <option value="marquedesc">Brand</option>
+                    <option value="chassis">Chassis</option>
+                    <option value="addresse">Address</option>
+                </select>
+                <span id="resultCount" class="result-count"></span>
+            </div>
+        </div>
+
+        <!-- Loading -->
+        <div id="loading" class="loading-bar" style="display:none;">
+            <div class="loading-inner"></div>
+        </div>
+
+        <!-- Results Table -->
+        <div class="table-wrapper">
+            <table id="resultsTable">
+                <thead>
+                    <tr>
+                        <th>Plate #</th>
+                        <th>Code</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Brand</th>
+                        <th>Color</th>
+                        <th>Type</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsBody">
+                    <tr class="empty-row">
+                        <td colspan="9">👆 Enter a search term above to find vehicle records</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination" id="pagination" style="display:none;">
+            <button onclick="prevPage()" id="prevBtn">← Previous</button>
+            <span id="pageInfo">Page 1</span>
+            <button onclick="nextPage()" id="nextBtn">Next →</button>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
